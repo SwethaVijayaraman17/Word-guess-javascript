@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: "Montserrat", sans-serif;
+            width: 90%;
+            margin: 8% auto;
+            background-color: rgba(140, 139, 214, 0.26);
+        }
+
+        #header {
+            color: rgb(12, 69, 155);
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        p {
+            color: red;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        input {
+            margin: 15px auto;
+            border: 1px solid rgba(0, 0, 0, 0.267);
+            font-size: 0.9em;
+            padding: 10px;
+            border-radius: 5px;
+            display: block;
+            width: 50%;
+            color: black;
+        }
+
+        #root {
+            width: 55%;
+            padding: 30px;
+            padding: 30px;
+            margin: 40px auto;
+            box-shadow: 1px 1px 2px 2px rgba(133, 128, 128, 0.37);
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        #missing_word {
+            text-align: center;
+
+        }
+
+        button {
+            background-color: rgba(86, 101, 240, 0.616);
+            padding: 10px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            display: inline-block;
+            margin: 10px 0px 10px 40%;
+        }
+
+        #name {
+            color: rgb(43, 10, 161);
+        }
+    </style>
+
+</head>
+
+<script>
+
+    var arr = [
+        {
+            name: "H _ _ L O",
+            word: "HELLO",
+        },
+        {
+            name: 'E _ C U _ _',
+            word: 'EXCUSE'
+        },
+        {
+            name: '_ A T _ R',
+            word: 'WATER'
+        },
+        {
+            name: 'B _ _ K',
+            word: "BOOK"
+        },
+        {
+            name: "D _ _ E L O _ E R",
+            word: "DEVELOPER"
+        }
+    ]
+    var count = 0
+    var chance = 5
+
+    function MissingWrdMapping() {
+        document.getElementById('missing_word').innerHTML = `The word is : <b id='name'>${arr[count].name}<br /><br />`
+    }
+    function GuessingWrd() {
+        var input = document.getElementById('word').value
+        if (arr[count].word === input.toUpperCase()) {
+            if (count < 4) {
+                count += 1;
+                document.getElementById('chance').innerHTML = ''
+                document.getElementById('word').value = ''
+                chance = 5
+                alert("Good Job !!")
+                MissingWrdMapping()
+
+            }
+            else {
+                document.getElementById('word').value = ''
+                document.getElementById('chance').innerHTML = ''
+                count = 0
+                alert("Good Job !!")
+                alert('Thank You..Start over!!')
+                MissingWrdMapping()
+
+            }
+        }
+        else if (count === 4) {
+            alert('Thank You..Start over!!')
+            count = 0
+        }
+        else if (chance == 1) {
+            alert("Your chances is over..Try again!!!");
+            document.getElementById('word').value = ''
+            document.getElementById('chance').innerHTML = ''
+            chance = 5;
+        }
+        else {
+            chance -= 1
+            document.getElementById('chance').innerHTML = `Sorry its wrong..You have ${chance} chances remaining !!!`
+
+        }
+
+    }
+
+</script>
+
+<body onload="MissingWrdMapping()">
+    
+    <h1 id="header">Welcome to Word Guessing Game</h1>
+    <div id="root">
+        <h2>Guess the word</h2>
+        <h3>Guess the correct word with five chances provided to you</h3>
+        <div id="missing_word">
+        </div>
+        <input type="text" id="word" placeholder="Enter the word here..." />
+        <p id="chance"></p>
+        <button id="guess" onclick="GuessingWrd()">Guess</button>
+
+    </div>
+
+</body>
+
+</html>
